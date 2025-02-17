@@ -1,0 +1,12 @@
+from ex-2-3 import Department
+
+class Company:
+    def __init__(self, name):
+        self.name = name
+        self.departments = []
+    
+    def add_department(self, department):
+        self.departments.append(department)
+    
+    def list_departments(self):
+        return [dept.name for dept in self.departments]
