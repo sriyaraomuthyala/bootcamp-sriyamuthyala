@@ -1,0 +1,1 @@
+sorted_routes = sorted(schedules.keys(), key=lambda r: len(schedules[r]))
