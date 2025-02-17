@@ -1,0 +1,10 @@
+This is a test line with some data.
+Processing large files efficiently is important.
+Python is great for handling big data.
+Another important line that contains useful information.
+Streaming data processing reduces memory usage.
+AI and machine learning models need structured data.
+Error handling is crucial when working with large files.
+Large files should be processed in chunks.
+This line contains some random text.
+End of the sample file.

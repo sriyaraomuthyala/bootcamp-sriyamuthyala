@@ -1,0 +1,8 @@
+This is the first line.
+An important message is here.
+Data processing is crucial in AI.
+Python is great for handling files.
+Error handling is necessary in programming.
+Another important line with critical data.
+Large files should be processed efficiently.
+The last line of this sample file.
