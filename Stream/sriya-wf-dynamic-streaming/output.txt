@@ -1,3 +1,0 @@
-1: Hello How Are You?
-2: I'm Fine
-3: Hope You Are Doing Well
