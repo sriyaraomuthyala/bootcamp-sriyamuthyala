@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Notes</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
+        h1 { color: #2c3e50; }
+        h2 { color: #16a085; }
+        code { background: #ecf0f1; padding: 2px 5px; border-radius: 4px; }
+        pre { background: #ecf0f1; padding: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>Project Notes: Basic Record Processing</h1>
+    <a>https://chatgpt.com/canvas/shared/67b5634bb7c481918a8b0e14ec400b31</a>
+    
+    <h2>Problems Solved</h2>
+    <ul>
+        <li>Implemented a function to process a text file by converting it to uppercase.</li>
+        <li>Extended functionality to include lowercase conversion, capitalization, stop-word removal, UK to US spelling conversion, and geolocation lookup.</li>
+        <li>Ensured all functions allow optional output file creation. If not provided, a default <code>input_filename.processed</code> file is generated.</li>
+        <li>Created a CLI using <code>typer</code> for easy command-line execution.</li>
+        <li>Configured the project with <code>poetry</code> and ensured it can be installed and executed as a script.</li>
+    </ul>
+
+    <h2>How ChatGPT Helped</h2>
+    <ul>
+        <li>Provided structured Python code for processing functions.</li>
+        <li>Designed a CLI using <code>typer</code> and guided its integration.</li>
+        <li>Updated the project’s <code>pyproject.toml</code> to correctly set up the script.</li>
+        <li>Ensured the script can be installed and tested using <code>poetry</code>.</li>
+        <li>Explained the implementation step by step.</li>
+    </ul>
+
+    <h2>Installation and Usage</h2>
+    <h3>1. Install Poetry</h3>
+    <pre><code>pip install poetry</code></pre>
+    
+    <h3>2. Install the Project</h3>
+    <pre><code>poetry install</code></pre>
+    
+    <h3>3. Run Commands</h3>
+    <pre><code>
+basic uppercase input.txt
+basic lowercase input.txt output.txt
+basic capitalize-words input.txt
+basic remove-stopwords input.txt
+basic geo-ip 8.8.8.8
+basic convert-uk-to-us input.txt</code></pre>
+    
+    <h2>Conclusion</h2>
+    <p>This project successfully sets up a text processing CLI with multiple functionalities. The modular approach ensures easy scalability for future improvements.</p>
+</body>
+</html>
