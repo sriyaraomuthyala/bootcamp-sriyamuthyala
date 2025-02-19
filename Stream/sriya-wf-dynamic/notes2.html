@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Issues & Solutions</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        h1 { color: #2c3e50; }
+        h2 { color: #16a085; }
+        ul { list-style-type: square; }
+        pre { background: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Problems Faced & Solutions</h1>
+
+    <h2>1. Typer Option Issue</h2>
+    <ul>
+        <li><strong>Problem:</strong> The `--config-file` option was not recognized by the Typer CLI.</li>
+        <li><strong>Solution:</strong> Ensured that the correct syntax was used and that `Option()` was imported properly without using the deprecated `required` argument.</li>
+    </ul>
+
+    <h2>2. Module Import Error</h2>
+    <ul>
+        <li><strong>Problem:</strong> The error `ModuleNotFoundError: No module named 'sriya_wf_dynamic.processing_functions'` occurred.</li>
+        <li><strong>Solution:</strong> Verified that the module was installed correctly using Poetry, reinstalled the package in editable mode, and ensured the correct import paths.</li>
+    </ul>
+
+    <h2>3. Poetry Installation Issues</h2>
+    <ul>
+        <li><strong>Problem:</strong> Dependencies were not installing properly with Poetry.</li>
+        <li><strong>Solution:</strong> Reinstalled the package with `poetry install`, checked for missing dependencies, and ensured the virtual environment was activated.</li>
+    </ul>
+
+    <h2>4. Moving and Renaming Files</h2>
+    <ul>
+        <li><strong>Problem:</strong> Needed to move and rename files within the WSL environment.</li>
+        <li><strong>Solution:</strong> Used `mv old_name new_name` for renaming and `mv source_path destination_path` for moving files correctly.</li>
+    </ul>
+
+    <h2>Prompts Used</h2>
+    <pre>
+1. "how to delete commands.py and rewrite it"
+2. "how to push project from wsl to git"
+3. "how do I create a copy of sriya-wf-basic and move it outside the bootcamp-sriyamuthyal?"
+</pre>
+</body>
+</html>
