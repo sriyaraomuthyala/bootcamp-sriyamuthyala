@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=display-width, initial-scale=1.0">
+    <title>Project Troubleshooting Notes</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
+        h1, h2 { color: #2c3e50; }
+        .problem { background: #f8d7da; padding: 10px; border-left: 5px solid #c0392b; }
+        .solution { background: #d4edda; padding: 10px; border-left: 5px solid #27ae60; }
+        .prompt { background: #e7f3fe; padding: 10px; border-left: 5px solid #3498db; }
+        pre { background: #ecf0f1; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Project Troubleshooting Notes</h1>
+    <h2>Problems Faced & Solutions</h2>
+    
+    <div class="problem">
+        <h3>1. Pip Install --editable . Failed</h3>
+        <p><strong>Issue:</strong> The installation failed due to a Python version mismatch in <code>pyproject.toml</code>.</p>
+    </div>
+    <div class="solution">
+        <h3>Solution:</h3>
+        <p>Updated <code>pyproject.toml</code> to use compatible Python constraints:</p>
+        <pre>[tool.poetry.dependencies]
+python = ">=3.8"
+</pre>
+        <p>Then ran:</p>
+        <pre>pip install --editable .</pre>
+    </div>
+    <div class="prompt">Prompt: "pip install --editable . error: metadata-generation-failed"</div>
+    
+    <div class="problem">
+        <h3>2. Command Not Found (sriya-wf-dynamic-streaming)</h3>
+        <p><strong>Issue:</strong> The installed command was not found in the system PATH.</p>
+    </div>
+    <div class="solution">
+        <h3>Solution:</h3>
+        <p>Checked if the command was installed:</p>
+        <pre>which sriya-wf-dynamic-streaming</pre>
+        <p>Added it to the PATH if needed:</p>
+        <pre>export PATH=$HOME/.local/bin:$PATH</pre>
+    </div>
+    <div class="prompt">Prompt: "sriya-wf-dynamic-streaming not found"</div>
+    
+    <div class="problem">
+        <h3>3. ImportError: cannot import name 'processing_functions'</h3>
+        <p><strong>Issue:</strong> The <code>processing_functions.py</code> file was in the wrong directory.</p>
+    </div>
+    <div class="solution">
+        <h3>Solution:</h3>
+        <p>Moved the file to the correct location:</p>
+        <pre>mv processing_functions.py sriya_wf_dynamic_streaming/</pre>
+        <p>Updated the import in <code>commands.py</code>:</p>
+        <pre>from sriya_wf_dynamic_streaming.processing_functions import upper_case</pre>
+    </div>
+    <div class="prompt">Prompt: "ImportError: cannot import name 'processing_functions'"</div>
+    
+    <div class="problem">
+        <h3>4. Unexpected Extra Argument Error</h3>
+        <p><strong>Issue:</strong> The CLI was not correctly structured to recognize commands.</p>
+    </div>
+    <div class="solution">
+        <h3>Solution:</h3>
+        <p>Fixed <code>commands.py</code> by explicitly defining the command:</p>
+        <pre>@app.command("process")</pre>
+        <p>Reinstalled the package:</p>
+        <pre>pip install --editable .</pre>
+    </div>
+    <div class="prompt">Prompt: "Got unexpected extra argument (input.txt)"</div>
+
+    <h2>Final Fix</h2>
+    <p>After applying these fixes, <code>sriya-wf-dynamic-streaming process input.txt</code> worked successfully.</p>
+</body>
+</html>
