@@ -2,7 +2,7 @@ import requests
 import sys
 
 # Replace with your GitHub token
-GITHUB_TOKEN = "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"
+GITHUB_TOKEN = "ghp_3Y14K3NskAMLtbAPbhqTcfp4FQrgLy3s"
 
 def get_github_repos(username):
     url = "https://api.github.com/graphql"
