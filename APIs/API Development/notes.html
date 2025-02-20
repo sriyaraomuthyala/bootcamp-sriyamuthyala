@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI Development Notes</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; padding: 20px; background-color: #f4f4f4; }
+        h1 { color: #333; }
+        h2 { color: #555; }
+        .problem { font-weight: bold; color: #d9534f; }
+        .solution { font-weight: bold; color: #5cb85c; }
+        .section { background: white; padding: 15px; margin: 10px 0; border-radius: 5px; box-shadow: 0px 0px 5px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <h1>FastAPI Development Notes</h1>
+
+    <div class="section">
+        <h2>1. Virtual Environment Issues</h2>
+        <p class="problem">Problem: FastAPI and dependencies were not recognized after installation.</p>
+        <p class="solution">Solution: Activated the virtual environment using <code>source venv/bin/activate</code> (Windows: <code>venv\Scripts\activate</code>).</p>
+    </div>
+
+    <div class="section">
+        <h2>2. Uvicorn Not Found</h2>
+        <p class="problem">Problem: Running <code>uvicorn main:app --reload</code> resulted in a "command not found" error.</p>
+        <p class="solution">Solution: Ensured installation using <code>pip install uvicorn</code>.</p>
+    </div>
+
+    <div class="section">
+        <h2>3. CORS Issues When Testing from Frontend</h2>
+        <p class="problem">Problem: API requests from frontend were blocked due to CORS policy.</p>
+        <p class="solution">Solution: Installed and enabled CORS middleware using:</p>
+        <pre>pip install fastapi[all]</pre>
+        <pre>
+from fastapi.middleware.cors import CORSMiddleware
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>4. SQLite Database Not Creating Tables</h2>
+        <p class="problem">Problem: After integrating SQLite, tables were not being created.</p>
+        <p class="solution">Solution: Ran <code>Base.metadata.create_all(bind=engine)</code> after defining models.</p>
+    </div>
+
+    <div class="section">
+        <h2>5. Background Task Not Executing</h2>
+        <p class="problem">Problem: Background tasks were not running as expected.</p>
+        <p class="solution">Solution: Ensured the task was added properly using <code>background_tasks.add_task(task_function, args)</code> and verified logs.</p>
+    </div>
+
+    <div class="section">
+        <h2>6. File Upload Directory Not Found</h2>
+        <p class="problem">Problem: File uploads were failing because the directory didn’t exist.</p>
+        <p class="solution">Solution: Created the <code>uploads</code> directory manually using <code>mkdir uploads</code>.</p>
+    </div>
+
+    <div class="section">
+        <h2>7. Static File Not Serving</h2>
+        <p class="problem">Problem: Static files were not accessible via the browser.</p>
+        <p class="solution">Solution: Ensured FastAPI was correctly mounting static files using:</p>
+        <pre>app.mount("/static", StaticFiles(directory="static"), name="static")</pre>
+    </div>
+</body>
+</html>
