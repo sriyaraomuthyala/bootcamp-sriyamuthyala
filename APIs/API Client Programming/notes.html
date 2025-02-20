@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Project Notes</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; padding: 20px; background-color: #f4f4f4; }
+        h1 { color: #333; }
+        h2 { color: #555; }
+        .problem { background: #ffdddd; padding: 10px; margin-bottom: 10px; border-left: 5px solid red; }
+        .solution { background: #ddffdd; padding: 10px; margin-bottom: 20px; border-left: 5px solid green; }
+    </style>
+</head>
+<body>
+    <h1>API Client Programming - Problems & Solutions</h1>
+    
+    <h2>Problem 1: SpaceX API Connection Error</h2>
+    <div class="problem">
+        <p>Error: "Failed to resolve 'api.spacex.land' ([Errno 11001] getaddrinfo failed)".</p>
+    </div>
+    <div class="solution">
+        <p><strong>Solution:</strong> Checked internet connection, tried alternative API endpoint <code>https://spacex-production.up.railway.app/graphql/</code>, and switched DNS to Google's (8.8.8.8).</p>
+    </div>
+    
+    <h2>Problem 2: GitHub Contributions Not Found</h2>
+    <div class="problem">
+        <p>Scraping GitHub profile page failed due to dynamic content loading.</p>
+    </div>
+    <div class="solution">
+        <p><strong>Solution:</strong> Used GitHub's GraphQL API instead to fetch yearly contributions.</p>
+    </div>
+    
+    <h2>Problem 3: Bluesky API Authentication</h2>
+    <div class="problem">
+        <p>Error: "Invalid credentials" when posting a message.</p>
+    </div>
+    <div class="solution">
+        <p><strong>Solution:</strong> Used an <strong>App Password</strong> instead of the normal password from Bluesky settings.</p>
+    </div>
+    
+    <h2>Problem 4: Fetching Exchange Rates</h2>
+    <div class="problem">
+        <p>Hardcoded target currency instead of allowing user input.</p>
+    </div>
+    <div class="solution">
+        <p><strong>Solution:</strong> Modified script to take currency as a command-line argument.</p>
+    </div>
+    
+    <h2>Problem 5: AniList API Not Fetching Descriptions</h2>
+    <div class="problem">
+        <p>Anime descriptions contained HTML tags.</p>
+    </div>
+    <div class="solution">
+        <p><strong>Solution:</strong> Removed HTML tags (<code>&lt;br&gt;, &lt;i&gt;</code>) from descriptions for clean output.</p>
+    </div>
+</body>
+</html>
