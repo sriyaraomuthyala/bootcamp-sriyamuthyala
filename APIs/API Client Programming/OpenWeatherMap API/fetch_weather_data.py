@@ -1,7 +1,7 @@
 import requests
 import sys
 
-API_KEY = "49e4fd3bfd29f6c55f1c2970da7d4048"  # Replace with your API key
+API_KEY = "49e4fd3bfdc2970da7d4048"  # Replace with your API key
 
 if len(sys.argv) != 2:
     print("Usage: python script.py <City_Name>")
