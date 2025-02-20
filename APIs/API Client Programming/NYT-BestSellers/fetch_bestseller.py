@@ -1,6 +1,6 @@
 import requests
 
-API_KEY = "BAdOEwW4jZOBMw0FAWEe0UeY7pBhA6XG"
+API_KEY = "BAdOEwW4jZWEe0UeY7pBhA6XG"
 url = f"https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key={API_KEY}"
 response = requests.get(url)
 
