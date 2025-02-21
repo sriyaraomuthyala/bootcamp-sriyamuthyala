@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQLite Project Notes</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
+        h1, h2 { color: #333; }
+        .section { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>SQLite Project: Challenges and Solutions</h1>
+    
+    <div class="section">
+        <h2>1. SQLite Installation Issues</h2>
+        <p><strong>Problem:</strong> The command <code>sudo apt install sqlite3</code> did not work because <code>apt</code> was not available.</p>
+        <p><strong>Solution:</strong> Identified the system type and installed SQLite using an alternative method:</p>
+        <ul>
+            <li>For macOS: <code>brew install sqlite</code></li>
+            <li>For Fedora: <code>sudo dnf install sqlite</code></li>
+            <li>For Windows: Downloaded SQLite binary from the official website.</li>
+        </ul>
+    </div>
+    
+    <div class="section">
+        <h2>2. Table Creation and Insertion Errors</h2>
+        <p><strong>Problem:</strong> Getting error "no such column: aganitha" while inserting data.</p>
+        <p><strong>Solution:</strong> Realized that double quotes were used instead of single quotes for string values. Fixed it by using:</p>
+        <pre>INSERT INTO COMPANIES VALUES ('aganitha', 1);</pre>
+    </div>
+    
+    <div class="section">
+        <h2>3. Transaction Rollback</h2>
+        <p><strong>Problem:</strong> Data corruption when an operation failed midway.</p>
+        <p><strong>Solution:</strong> Used transactions to ensure rollback on failure:</p>
+        <pre>
+BEGIN TRANSACTION;
+INSERT INTO products (name, price) VALUES ('Laptop', 1000);
+ROLLBACK;
+        </pre>
+    </div>
+    
+    <div class="section">
+        <h2>4. Data Fetching Performance Issues</h2>
+        <p><strong>Problem:</strong> Slow queries when fetching large amounts of data.</p>
+        <p><strong>Solution:</strong> Optimized queries using indexing:</p>
+        <pre>CREATE INDEX idx_product_name ON products(name);</pre>
+    </div>
+    
+    <div class="section">
+        <h2>5. Search Functionality Returning Empty Results</h2>
+        <p><strong>Problem:</strong> Searching for a product name returned empty results.</p>
+        <p><strong>Solution:</strong> Used wildcard search with LIKE:</p>
+        <pre>SELECT * FROM products WHERE name LIKE '%laptop%';</pre>
+    </div>
+    
+    <div class="section">
+        <h2>6. Batch Insertion Fails Midway</h2>
+        <p><strong>Problem:</strong> When inserting multiple records, a failure caused only some records to be inserted.</p>
+        <p><strong>Solution:</strong> Wrapped batch inserts in a transaction:</p>
+        <pre>
+BEGIN TRANSACTION;
+INSERT INTO products (name, price) VALUES ('Mouse', 25.99);
+INSERT INTO products (name, price) VALUES ('Charger', 19.99);
+COMMIT;
+        </pre>
+    </div>
+    
+    <div class="section">
+        <h2>7. Exporting Data to CSV</h2>
+        <p><strong>Problem:</strong> Needed to extract product data for external use.</p>
+        <p><strong>Solution:</strong> Created a Python script to export data:</p>
+        <pre>
+import csv
+import sqlite3
+
+conn = sqlite3.connect("store.db")
+cursor = conn.cursor()
+cursor.execute("SELECT * FROM products")
+
+with open("products.csv", "w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerow(["ID", "Name", "Price"])
+    writer.writerows(cursor.fetchall())
+
+conn.close()
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>8. Building an API for Product Management</h2>
+        <p><strong>Problem:</strong> Running scripts manually was inefficient.</p>
+        <p><strong>Solution:</strong> Built a FastAPI-based API to handle database operations.</p>
+        <pre>
+from fastapi import FastAPI
+import sqlite3
+
+app = FastAPI()
+
+@app.get("/products")
+def get_products():
+    conn = sqlite3.connect("store.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM products")
+    products = cursor.fetchall()
+    conn.close()
+    return {"products": products}
+        </pre>
+    </div>
+</body>
+</html>
+
