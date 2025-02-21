@@ -1,2 +1,3 @@
 pyyaml
 pickle5
+pydantic
