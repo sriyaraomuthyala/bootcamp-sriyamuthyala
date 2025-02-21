@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACID Properties and Transactions</title>
+</head>
+<body>
+    <h1>ACID Properties and Transactions</h1>
+    
+    <h2>1.What are Transactions?</h2>
+    <p>A transaction is a sequence of database operations executed as a single unit. Transactions ensure data integrity and consistency by following the ACID properties.</p>
+    
+    <h2>2.What are ACID Properties?</h2>
+    <ul>
+        <li><strong>Atomicity</strong>: Ensures that a transaction is all-or-nothing. If one part fails, the entire transaction is rolled back.</li>
+        <li><strong>Consistency</strong>: Ensures the database remains in a valid state before and after a transaction.</li>
+        <li><strong>Isolation</strong>: Ensures transactions do not interfere with each other.</li>
+        <li><strong>Durability</strong>: Ensures committed transactions persist even in the event of a system crash.</li>
+    </ul>
+    
+    <h2>3.Is a System Without Transactions Useful?</h2>
+    <p>A system without transactions can still function but lacks guarantees for consistency and reliability. It may be acceptable for simple applications like logging but is not suitable for financial systems.</p>
+    
+    <h2>Properties of a File System</h2>
+    <ul>
+        <li>Atomicity at the file level</li>
+        <li>Consistency via journaling (e.g., ext4, NTFS)</li>
+        <li>Isolation through access control</li>
+        <li>Durability through persistent storage</li>
+    </ul>
+    
+    <h2>4.Effects of Missing 'A' from ACID Properties</h2>
+    
+    <h3>Missing Atomicity</h3>
+    <p>If atomicity is missing, partial transactions may be written, causing inconsistencies.</p>
+    <p><strong>When is it okay?</strong> In logging systems or real-time analytics where missing some records is acceptable.</p>
+    
+    <h2>5.Effects of Missing 'C','I' and 'D' from ACID Properties</h2>
+    <h3>Missing Consistency</h3>
+    <p>If consistency is missing, the database may contain invalid data.</p>
+    <p><strong>When is it okay?</strong> In NoSQL databases with eventual consistency, like Cassandra.</p>
+    
+    <h3>Missing Isolation</h3>
+    <p>If isolation is missing, transactions may interfere with each other, causing dirty reads or lost updates.</p>
+    <p><strong>When is it okay?</strong> In high-performance analytics or real-time leaderboards.</p>
+    
+    <h3>Missing Durability</h3>
+    <p>If durability is missing, committed transactions may be lost after a crash.</p>
+    <p><strong>When is it okay?</strong> In caching systems like Redis where data loss is acceptable.</p>
+    
+    <h2>Choosing a Database</h2>
+    <ul>
+        <li><strong>(k, v) Databases (e.g., Redis)</strong>: Best for key-value lookups.</li>
+        <li><strong>Relational Databases</strong>: Best for structured data and transactions.</li>
+        <ul>
+            <li><strong>SQLite</strong>: Best for single-application usage.</li>
+            <li><strong>PostgreSQL</strong>: Best for distributed and multi-application usage.</li>
+        </ul>
+    </ul>
+</body>
+</html>
+
