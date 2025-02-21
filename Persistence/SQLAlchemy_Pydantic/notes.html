@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>SQLAlchemy + Pydantic Practice Exercises - Notes</title>
+</head>
+<body>
+    <h1>SQLAlchemy + Pydantic Practice Exercises - Notes</h1>
+    <h2>Problems Faced and How We Solved Them</h2>
+    
+    <h3>1. Setting Up the Database</h3>
+    <p><strong>Problem:</strong> Initially faced issues with connecting to the SQLite database.</p>
+    <p><strong>Solution:</strong> Used SQLAlchemy’s <code>create_engine</code> function and ensured that <code>check_same_thread=False</code> was added in <code>connect_args</code> to prevent thread issues.</p>
+
+    <h3>2. Defining SQLAlchemy Models</h3>
+    <p><strong>Problem:</strong> Relationship between <code>User</code> and <code>Post</code> models wasn't being established properly.</p>
+    <p><strong>Solution:</strong> Used <code>ForeignKey</code> in the <code>Post</code> model and added a relationship in both models using SQLAlchemy’s <code>relationship()</code> function.</p>
+
+    <h3>3. Validating User Data with Pydantic</h3>
+    <p><strong>Problem:</strong> Pydantic was throwing validation errors for missing fields.</p>
+    <p><strong>Solution:</strong> Created a separate <code>UserCreate</code> schema for input validation and used the <code>orm_mode = True</code> setting in response models.</p>
+
+    <h3>4. CRUD Operations</h3>
+    <p><strong>Problem:</strong> Querying users by email was returning <code>None</code> due to incorrect filtering.</p>
+    <p><strong>Solution:</strong> Used <code>db.query(User).filter(User.email == email).first()</code> to ensure we retrieve the correct user.</p>
+
+    <h3>5. Updating User Email</h3>
+    <p><strong>Problem:</strong> Changes made to the user’s email were not persisting.</p>
+    <p><strong>Solution:</strong> Used <code>db.commit()</code> after updating the user object to save changes.</p>
+
+    <h3>6. Deleting a User</h3>
+    <p><strong>Problem:</strong> The deletion wasn’t being committed, leading to users still appearing in queries.</p>
+    <p><strong>Solution:</strong> Called <code>db.commit()</code> after <code>db.delete(user)</code> to persist the deletion.</p>
+
+    <h3>7. Fetching Users with Posts</h3>
+    <p><strong>Problem:</strong> Posts weren’t being included in the user response.</p>
+    <p><strong>Solution:</strong> Used <code>joinedload(User.posts)</code> to eagerly load related posts when querying for a user.</p>
+
+    <h3>8. Implementing Transactions for Bulk Inserts</h3>
+    <p><strong>Problem:</strong> When inserting multiple users, a failure in one insert was leaving the database in an inconsistent state.</p>
+    <p><strong>Solution:</strong> Used transactions by wrapping inserts within a <code>try-except</code> block and rolling back on failure.</p>
+
+    <h3>9. Converting Everything to Async</h3>
+    <p><strong>Problem:</strong> Switching from synchronous to asynchronous queries caused connection errors.</p>
+    <p><strong>Solution:</strong> Used <code>asyncpg</code> with PostgreSQL and converted database sessions to use <code>async with</code> statements.</p>
+    
+    <h3>Final Thoughts</h3>
+    <p>By breaking down each problem and systematically debugging, we successfully implemented a full-fledged API using SQLAlchemy and Pydantic. These solutions ensure efficient database management, structured data validation, and clean API endpoints.</p>
+</body>
+</html>
+
