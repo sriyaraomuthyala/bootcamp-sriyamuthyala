@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persistence Issues and Solutions</title>
+</head>
+<body>
+    <h1>Persistence Using File and DB - Issues and Solutions</h1>
+    
+    <h2>1. NameError: name 'Car' is not defined</h2>
+    <p><strong>Problem:</strong> While deserializing YAML data into a <code>Car</code> object, the script encountered an error because the <code>Car</code> class was not defined before attempting to create an instance.</p>
+    <p><strong>Solution:</strong> Defined the <code>Car</code> class before deserializing the YAML data. This ensured that the program recognized the class while reconstructing the object.</p>
+    
+    <h2>2. Missing Dependencies (PyYAML)</h2>
+    <p><strong>Problem:</strong> The script required PyYAML for serialization but encountered an import error because the library was not installed.</p>
+    <p><strong>Solution:</strong> Installed the required package using:</p>
+    <pre><code>pip install pyyaml</code></pre>
+    
+    <h2>3. Incorrect File Paths</h2>
+    <p><strong>Problem:</strong> Some scripts failed because they were trying to access files using relative paths, but the working directory was different.</p>
+    <p><strong>Solution:</strong> Used absolute paths or ensured that the working directory matched the script’s expected file locations.</p>
+    
+    <h2>4. JSON Serialization Errors</h2>
+    <p><strong>Problem:</strong> The <code>Book</code> class could not be serialized directly into JSON as it was a custom class.</p>
+    <p><strong>Solution:</strong> Implemented a <code>to_json</code> method in the class to convert objects into dictionaries before serializing.</p>
+    
+    <h2>5. Handling Cyclic References</h2>
+    <p><strong>Problem:</strong> When serializing objects with cyclic references (e.g., a graph with nodes referencing each other), Python raised a recursion error.</p>
+    <p><strong>Solution:</strong> Implemented a custom serialization function that replaced references with identifiers to prevent infinite loops.</p>
+    
+    <h2>6. Versioning Serialized Objects</h2>
+    <p><strong>Problem:</strong> Older versions of serialized objects were missing fields required by updated class definitions.</p>
+    <p><strong>Solution:</strong> Added a <code>version</code> field and handled missing attributes during deserialization.</p>
+    
+    <h2>7. Security Issues in Serialization</h2>
+    <p><strong>Problem:</strong> Sensitive attributes (e.g., passwords) were included in serialization.</p>
+    <p><strong>Solution:</strong> Implemented a method to exclude sensitive fields before serializing the object.</p>
+    
+    <h2>Conclusion</h2>
+    <p>By resolving these issues, we ensured smooth serialization and deserialization of objects in different formats (Pickle, JSON, YAML). Each problem helped us better understand Python’s persistence mechanisms and improve our implementation strategies.</p>
+</body>
+</html>
+
