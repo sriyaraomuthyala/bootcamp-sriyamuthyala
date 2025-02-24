@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persistent Queue System - Issues & Solutions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .issue {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #ffdddd;
+            border-left: 5px solid #d9534f;
+        }
+        .solution {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #ddffdd;
+            border-left: 5px solid #5cb85c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Persistent Queue System - Issues & Solutions</h1>
+        
+        <div class="issue">
+            <h2>1. FastAPI Server Immediately Shutting Down</h2>
+            <p><strong>Problem:</strong> The FastAPI server would start but then shut down immediately, making it impossible for the producer to connect.</p>
+        </div>
+        <div class="solution">
+            <h2>Solution</h2>
+            <p>We ensured that FastAPI was running persistently in the background using:</p>
+            <pre>nohup poetry run uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload &</pre>
+            <p>This prevented the process from stopping when the terminal was closed.</p>
+        </div>
+
+        <div class="issue">
+            <h2>2. ConnectionRefusedError - Producer Failing to Connect</h2>
+            <p><strong>Problem:</strong> The producer script could not send jobs to the FastAPI server due to a connection refusal.</p>
+        </div>
+        <div class="solution">
+            <h2>Solution</h2>
+            <p>We changed the API URL in the producer script from:</p>
+            <pre>API_URL = "http://localhost:8000/enqueue/"</pre>
+            <p>To:</p>
+            <pre>API_URL = "http://127.0.0.1:8000/enqueue/"</pre>
+            <p>This ensured compatibility with network resolution in different environments.</p>
+        </div>
+        
+        <div class="issue">
+            <h2>3. SQLite Database Not Creating Properly</h2>
+            <p><strong>Problem:</strong> The database file was not being created, causing FastAPI to fail.</p>
+        </div>
+        <div class="solution">
+            <h2>Solution</h2>
+            <p>We manually initialized the database using:</p>
+            <pre>poetry run python scripts/setup_db.py</pre>
+            <p>This created the `queue.db` file with the required schema.</p>
+        </div>
+        
+        <div class="issue">
+            <h2>4. Jobs Not Being Processed</h2>
+            <p><strong>Problem:</strong> The consumer was not fetching jobs from the queue even though jobs were enqueued.</p>
+        </div>
+        <div class="solution">
+            <h2>Solution</h2>
+            <p>We found that the `dequeue` function was not updating the job status to "processing." We fixed it by updating `persistent_queue.py`:</p>
+            <pre>
+    def dequeue(self):
+        self.cursor.execute("SELECT job_id, job_data FROM queue WHERE status = 'pending' LIMIT 1")
+        job = self.cursor.fetchone()
+        if job:
+            self.cursor.execute("UPDATE queue SET status = 'processing' WHERE job_id = ?", (job[0],))
+            self.conn.commit()
+            return job
+        return None
+            </pre>
+            <p>This ensured that jobs were correctly marked and processed.</p>
+        </div>
+        
+        <div class="issue">
+            <h2>5. Consumer Failing Due to API Call Errors</h2>
+            <p><strong>Problem:</strong> The consumer would sometimes fail when calling `mark_done`, causing jobs to get stuck in "processing."</p>
+        </div>
+        <div class="solution">
+            <h2>Solution</h2>
+            <p>We wrapped API requests in a `try-except` block in `consumer.py`:</p>
+            <pre>
+    try:
+        response = requests.post(f"{MARK_DONE_URL}{job_id}")
+        response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        print(f"[ERROR] Failed to mark job {job_id} as done: {e}")
+            </pre>
+            <p>This allowed the script to continue running even if an API call failed.</p>
+        </div>
+    </div>
+</body>
+</html>
+
