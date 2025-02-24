@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation Notes</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; padding: 20px; background-color: #f4f4f4; }
+        h1 { color: #333; }
+        h2 { color: #444; }
+        .problem { background: #ffdddd; padding: 10px; border-left: 5px solid red; margin-bottom: 10px; }
+        .solution { background: #ddffdd; padding: 10px; border-left: 5px solid green; }
+    </style>
+</head>
+<body>
+    <h1>Problems Faced and Solutions</h1>
+
+    <h2>1. Streamlit Not Installed</h2>
+    <div class="problem">
+        <p><strong>Problem:</strong> Running <code>streamlit run app.py</code> resulted in "Command not found".</p>
+    </div>
+    <div class="solution">
+        <p><strong>Solution:</strong> Installed Streamlit using <code>pip install streamlit</code>.</p>
+    </div>
+
+    <h2>2. Multipage App Not Showing Pages</h2>
+    <div class="problem">
+        <p><strong>Problem:</strong> The additional pages in the <code>pages</code> folder were not appearing in the sidebar.</p>
+    </div>
+    <div class="solution">
+        <p><strong>Solution:</strong> Ensured that page files were correctly named and placed inside a folder named <code>pages</code> in the root directory.</p>
+    </div>
+
+    <h2>3. Session State Not Persisting</h2>
+    <div class="problem">
+        <p><strong>Problem:</strong> Counter value reset on each button click.</p>
+    </div>
+    <div class="solution">
+        <p><strong>Solution:</strong> Used <code>st.session_state</code> to store counter values persistently.</p>
+    </div>
+
+    <h2>4. Authentication Issues</h2>
+    <div class="problem">
+        <p><strong>Problem:</strong> The login form did not restrict access properly.</p>
+    </div>
+    <div class="solution">
+        <p><strong>Solution:</strong> Used a function to check authentication status and hide content accordingly.</p>
+    </div>
+
+    <h2>5. Matplotlib Graph Not Displaying</h2>
+    <div class="problem">
+        <p><strong>Problem:</strong> Streamlit displayed an error when rendering Matplotlib plots.</p>
+    </div>
+    <div class="solution">
+        <p><strong>Solution:</strong> Used <code>st.pyplot(fig)</code> instead of <code>plt.show()</code>.</p>
+    </div>
+
+    <h2>6. Pandas DataFrame Not Displaying Properly</h2>
+    <div class="problem">
+        <p><strong>Problem:</strong> The table appeared as plain text instead of an interactive table.</p>
+    </div>
+    <div class="solution">
+        <p><strong>Solution:</strong> Used <code>st.dataframe(df)</code> instead of <code>st.write(df)</code> for better interactivity.</p>
+    </div>
+
+    <h2>7. Plotly Graph Not Rendering</h2>
+    <div class="problem">
+        <p><strong>Problem:</strong> The Plotly scatter plot was not appearing.</p>
+    </div>
+    <div class="solution">
+        <p><strong>Solution:</strong> Used <code>st.plotly_chart(fig)</code> to render the graph correctly.</p>
+    </div>
+</body>
+</html>
