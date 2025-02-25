@@ -13,7 +13,7 @@ This system ensures jobs **survive restarts**, supports **automatic retries**, a
 
 ---
 
-## ** Quick Start Guide**
+## **Quick Start Guide**
 ### **1️⃣ Install Dependencies**
 ```bash
 poetry install
