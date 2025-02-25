@@ -1,4 +1,4 @@
-### ** Persistent Queue System** 
+### **Persistent Queue System**
 A **fault-tolerant producer-consumer system** with a **persistent queue**, built using **FastAPI, SQLite, and Streamlit**.  
 This system ensures jobs **survive restarts**, supports **automatic retries**, and provides a **dashboard for monitoring & administration**.
 
