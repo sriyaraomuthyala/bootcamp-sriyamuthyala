@@ -15,6 +15,11 @@ dependencies = [
     "supervisor (>=4.2.5,<5.0.0)"
 ]
 
+[tool.poetry]
+name = "persistent-queue-system"
+version = "0.1.0"
+packages = [{ include = "persistent_queue" }]  
+
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
