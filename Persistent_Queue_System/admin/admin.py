@@ -21,6 +21,12 @@ class AdminManager:
         self.conn.commit()
         print(f"[INFO] Marked job {job_id} as failed.")
 
+    def reset_stuck_jobs(self):
+        #Moves jobs that were 'processing' back to 'pending'.
+        self.cursor.execute("UPDATE queue SET status = 'pending' WHERE status = 'processing'")
+        self.conn.commit()
+        print("[INFO] Reset stuck jobs to 'pending'.")
+
     def list_jobs(self, status=None):
         #Lists all jobs or filters by status
         if status:
@@ -37,23 +43,31 @@ class AdminManager:
         else:
             print("[INFO] No jobs found.")
 
+     def close(self):
+        #Closes the database connection.
+        self.conn.close()
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Admin tools for managing job queue.")
-    parser.add_argument("--resubmit", action="store_true", help="Resubmit failed jobs.")
-    parser.add_argument("--fail", type=str, help="Mark a job as failed.")
-    parser.add_argument("--list", nargs="?", const="all", type=str, help="List jobs (optional: filter by status).")
+    parser.add_argument("--list", help="List all jobs (optionally filter by status)", nargs="?", const="all")
+    parser.add_argument("--resubmit", action="store_true", help="Resubmit failed and stuck jobs")
+    parser.add_argument("--reset-stuck", action="store_true", help="Reset stuck jobs (processing -> pending)")
+    parser.add_argument("--fail", type=str, help="Mark a specific job as failed")
 
     args = parser.parse_args()
     admin = AdminManager()
 
+    if args.list:
+        status = None if args.list == "all" else args.list
+        admin.list_jobs(status)
+
     if args.resubmit:
-        admin.resubmit_failed_jobs()
-    elif args.fail:
+        admin.resubmit_jobs()
+
+    if args.reset_stuck:
+        admin.reset_stuck_jobs()
+
+    if args.fail:
         admin.mark_as_failed(args.fail)
-    elif args.list:
-        if args.list == "all":
-            admin.list_jobs()
-        else:
-            admin.list_jobs(args.list)
-    else:
-        parser.print_help()
+
+    admin.close()
