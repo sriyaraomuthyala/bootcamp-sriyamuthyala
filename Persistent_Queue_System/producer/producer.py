@@ -1,10 +1,10 @@
 import time
-import requests
+from persistent_queue.queue_manager import QueueManager
 
-API_URL = "http://localhost:8000/enqueue/"
+queue = QueueManager()
 
-while True:
-    job_data = "Job data example"
-    response = requests.post(API_URL, json={"job_data": job_data})
-    print(response.json())
-    time.sleep(5)
+if __name__ == "__main__":
+    while True:
+        job_id = queue.submit_job(f"Process file {int(time.time())}")  
+        print(f"✅ Job {job_id} added to queue.")
+        time.sleep(5)  # Simulating periodic job submissions
