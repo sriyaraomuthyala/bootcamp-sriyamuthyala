@@ -68,7 +68,7 @@ http://YOUR_VM_EXTERNAL_IP:8501
 
 ---
 
-## ** Abstraction & Security Updates**  
+## **Abstraction & Security Updates**  
 **-Producers & consumers never interact with SQLite directly.**  
 **-All queue operations (enqueue, dequeue, mark done, retries) are handled via `QueueManager`.**  
 **-Thread-safe locks prevent race conditions between multiple consumers.**  
